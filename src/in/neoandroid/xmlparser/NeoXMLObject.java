@@ -8,38 +8,38 @@ public class NeoXMLObject {
 	private String name = null;
 	private String content = null;
 	private HashMap<String, ArrayList<NeoXMLObject>> children = new HashMap<String, ArrayList<NeoXMLObject>>();
-	
+
 	public NeoXMLObject(String name) {
 		this.name = name;
 	}
-	
+
 	public HashMap<String, ArrayList<NeoXMLObject>> getAllChildren() {
 		return children;
 	}
-	
+
 	public ArrayList<NeoXMLObject> getChildrenWithTag(String name) {
 		return children.get(name);
 	}
-	
+
 	public NeoXMLObject getFirstChild(String name) {
 		ArrayList<NeoXMLObject> childList = getChildrenWithTag(name);
 		if(childList != null && childList.size() > 0)
 			return childList.get(0);
 		return null;
 	}
-	
+
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
 	public String getContent() {
 		return content;
 	}
-	
+
 	public String getName() {
 		return name;
-	}
-	
+    }
+
 	public boolean insertAttribute(String name, String value) {
 		if(attributes.containsKey(name))
 			return false;
@@ -50,7 +50,7 @@ public class NeoXMLObject {
 	public HashMap<String, String> getAllAttributes() {
 		return attributes;
 	}
-	
+
 	public boolean insertChild(NeoXMLObject child) {
 		if(child == null)
 			return false;
@@ -61,12 +61,18 @@ public class NeoXMLObject {
 		children.put(child.name, childList);
 		return true;
 	}
-	
-	public boolean hasChild(String name) {
+
+    public boolean hasChild(String name) {
 		return children.containsKey(name);
 	}
-	
+
 	public boolean hasAttribute(String name) {
 		return attributes.containsKey(name);
+	}
+
+    public String getAttributeValue(String name) {
+		if(!hasAttribute(name))
+			return null;
+		return attributes.get(name);
 	}
 }
